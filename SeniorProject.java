@@ -14,6 +14,9 @@ public class SeniorProject
         
         int selector;
         System.out.println("Welcome to Oasis Assistant.");
+        System.out.println("___________________________");
+        System.out.println("        Login as: ");
+        System.out.println("___________________________");
         System.out.println("1. Student");
         System.out.println("2. Teacher");
         System.out.println("3. Administrator");
@@ -41,9 +44,10 @@ public class SeniorProject
                     break;
                 case 4:
                     System.out.println("Good luck with your semester!");
+                    System.exit(0);
                     break;
                  default:
-                    System.out.println("You did not select one of the options. Please try again.");
+                    System.out.println("Input is incorrect, try again.");
                     selector = keyboard.nextInt();
                  
             }
