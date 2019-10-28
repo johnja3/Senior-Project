@@ -13,10 +13,10 @@ import com.microsoft.sqlserver.jdbc.*;
 
 public class FinalProjectMain {
 
-    // Connect to your database.
-    // Replace server name, username, and password with your credentials
     public static void main(String[] args) {
+        // Takes user input
           Scanner keyboard = new Scanner(System.in);
+        // Allows access to methods in senior project file
           SeniorProject sp = new SeniorProject();
           
           int selector;
