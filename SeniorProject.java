@@ -1,3 +1,4 @@
+
 import java.io.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -10,7 +11,7 @@ import java.sql.Statement;
 import java.sql.*;
 import com.microsoft.sqlserver.jdbc.*;
 
-public class SeniorProject extends FinalProject {
+public class SeniorProject extends FinalProjectMain {
 
     public static void student() {
         System.out.println("Testing student prompt:");
@@ -19,6 +20,8 @@ public class SeniorProject extends FinalProject {
         Scanner keyboard2 = new Scanner(System.in);
         Scanner keyboard3 = new Scanner(System.in);
         Scanner keyboard4 = new Scanner(System.in);
+        Scanner keyboard5 = new Scanner(System.in);
+        Scanner keyboard6 = new Scanner(System.in);
         int amountClass;
         System.out.println("How many classes are you going to take?");
         amountClass = keyboard.nextInt();
@@ -31,41 +34,40 @@ public class SeniorProject extends FinalProject {
         String[] classes = new String[amountClass];
         classes = selector.split(",");
         System.out.println("Please enter the days you would like to come to school.");
-        System.out.println("Example: Monday, Tuesday, Wednesday, Thursday, Friday");
+        System.out.println("Example: MW, TR, WF, M, T, R, F");
         String selector1;
         selector1 = keyboard3.nextLine();
 
-        String[] days = new String[5];
+        String[] days = new String[amountClass];
         days = selector1.split(",");
 
-        System.out.println("Please enter the times you want to come in.");
-        System.out.println("Example: 9am-3pm, 11am-8pm, 5pm-7pm");
+        System.out.println("Please enter the starting time");
+        System.out.println("Example: 9:00, 10:00, 11:00, ect.");
         String selector2;
         selector2 = keyboard4.nextLine();
 
-        String[] times = new String[5];
-        times = selector2.split(",");
+        String startingTimes;
+        startingTimes = selector2;
 
+        System.out.println("Please enter the ending time");
+        System.out.println("Example: 4:00, 5:00, 6:00, ect.");
+        String selectorTime;
+        selectorTime = keyboard5.nextLine();
 
-//        for (int i = 0; i < classes.length; i++) {
-//            System.out.print(classes[i] + " ");
-//
-//        }
-//
-//        System.out.println();
-//        for (int i = 0; i < days.length; i++) {
-//            System.out.println(days[i] + " ");
-//
-//        }
-//        System.out.println();
-//        for (int i = 0; i < times.length; i++) {
-//            System.out.println(times[i] + " ");
-//
-//        }
+        String endingTime;
+        endingTime = selectorTime;
 
-        
-        
-          String connectionUrl
+        System.out.println("Please enter preferred professors");
+        System.out.println("Example: Kathleen J Hoehmann, Henry Bojack");
+        String selectProfessor;
+        selectProfessor = keyboard6.nextLine();
+
+        String[] professor = new String[amountClass];
+        professor = selectProfessor.split(",");
+
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------");
+
+        String connectionUrl
                 = "jdbc:sqlserver://bcs430-final-project.database.windows.net;"
                 + "database=OASIS ASSISTANT;"
                 + "user=farmingdale@bcs430-final-project;"
@@ -76,42 +78,37 @@ public class SeniorProject extends FinalProject {
 
         Statement state = null;
         ResultSet resultSet = null;
+        for (int p = 0; p < classes.length; p++) {
+            try {
+                Connection con = DriverManager.getConnection(connectionUrl);
+                String SQL = "SELECT * FROM dbo.OASISDATA2 WHERE CourseName = '" + classes[p] + "' and Days = '"
+                        + days[p] + "'";
+// and Instructor = '" + professor[p] + " (P)'
 
-        try {
-            Connection con = DriverManager.getConnection(connectionUrl);
-            String SQL = "SELECT * FROM dbo.courseData WHERE subj = '" + classes[0] + "' and days = '"
-            + days[0] + "'";
-            state = con.createStatement();
-            resultSet = state.executeQuery(SQL);
+                state = con.createStatement();
+                resultSet = state.executeQuery(SQL);
+                int i = 1;
+                String[] output = new String[i - 1];
+                while (resultSet.next()) {
 
-            while (resultSet.next()) {
-                System.out.println(resultSet.getString(1)
-                        + "    " + resultSet.getString(2) + "    " + resultSet.getString(3) 
-                + "    " + resultSet.getString(4) + "    " + resultSet.getString(5) 
-                + "    " + resultSet.getString(6) + "    " + resultSet.getString(7));
+//                output[i] = resultSet.getString(i);
+                    System.out.println(resultSet.getString(1)
+                            + "    " + resultSet.getString(2) + "    " + resultSet.getString(3)
+                            + "    " + resultSet.getString(4) + "    " + resultSet.getString(5)
+                            + "    " + resultSet.getString(6) + "    " + resultSet.getString(7) + "    " + resultSet.getString(8)
+                            + "    " + resultSet.getString(9) + "    " + resultSet.getString(10) + "    " + resultSet.getString(11));
+
+                    i++;
+
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-    
-    
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------");
+
     }
 
     public static void teacher() {
@@ -152,10 +149,7 @@ public class SeniorProject extends FinalProject {
                 System.out.println("Good luck with your semester!");
                 System.exit(0);
                 break;
-            case "5":
-                System.out.println("Testing DB:");
-                testDB();
-                break;
+
             default:
                 System.out.println("Input is incorrect, try again.");
                 System.out.println();
@@ -163,89 +157,4 @@ public class SeniorProject extends FinalProject {
         }
     }
 
-    public static void testDB() {
-        String connectionUrl
-                = "jdbc:sqlserver://bcs430-final-project.database.windows.net;"
-                + "database=OASIS ASSISTANT;"
-                + "user=farmingdale@bcs430-final-project;"
-                + "password=bcs430w!;"
-                + "encrypt=true;"
-                + "trustServerCertificate=true;"
-                + "loginTimeout=30;";
-
-        Statement state = null;
-        ResultSet resultSet = null;
-
-        try {
-            Connection con = DriverManager.getConnection(connectionUrl);
-            String SQL = "SELECT * FROM dbo.courseData;";
-            state = con.createStatement();
-            resultSet = state.executeQuery(SQL);
-
-            while (resultSet.next()) {
-                System.out.println(resultSet.getString(1)
-                        + "    " + resultSet.getString(2));
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
-//    public static String[] classes(String[] array)
-//    {
-//        
-//        String [] classes = new String[array.length];
-//        
-//        for (int i = 0; i < array.length; i++)
-//        {
-//         classes[i] = array[i];   
-//        }
-//        
-//        
-//        
-//        String connectionUrl
-//                = "jdbc:sqlserver://bcs430-final-project.database.windows.net;"
-//                + "database=OASIS ASSISTANT;"
-//                + "user=farmingdale@bcs430-final-project;"
-//                + "password=bcs430w!;"
-//                + "encrypt=true;"
-//                + "trustServerCertificate=true;"
-//                + "loginTimeout=30;";
-//
-//        Statement state = null;
-//        ResultSet resultSet = null;
-//
-//        try {
-//            Connection con = DriverManager.getConnection(connectionUrl);
-//            String SQL = "SELECT * FROM dbo.Course Data 2 WHERE crse = 102;";
-//            state = con.createStatement();
-//            resultSet = state.executeQuery(SQL);
-//            
-//            while (resultSet.next()) {
-//                System.out.println(resultSet.getString(1)
-//                        + "    " + resultSet.getString(2) + "     " + resultSet.getString(3) + "     "
-//                        + resultSet.getString(4) + "     " + resultSet.getString(5) + "     "
-//                        + resultSet.getString(6) + "     " + resultSet.getString(7) + "     " + resultSet.getString(8)
-//                        + "     " + resultSet.getString(9) + "     " + resultSet.getString(10) + "     " + resultSet.getString(11)
-//                        + "     "/* +resultSet.getString(12)*/);
-//            }
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    
-//       
-//        
-//        
-//        
-//        return classes;
-//    }
-    
-    
-    
-    
-
-    
-    
 }
