@@ -15,7 +15,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.FileReader;
 
-public class SeniorProject extends FinalProject {
+
+public class SeniorProject extends FinalProjectMain {
 
     public static void student() throws IOException {
 
@@ -204,8 +205,8 @@ public class SeniorProject extends FinalProject {
             try {
                 Connection con = DriverManager.getConnection(connectionUrl);
                 String SQL = "SELECT top 1 * FROM dbo.FacultyTest WHERE CourseName = '" + classes[p] + "' and Days = '"
-                        + days[p] + "' and Instructor = 'tbd' and startTime >= '" + startingTimes
-                        + "' and endTime <= '" + endingTime + "'";
+                        + days[p] + "' and Instructor = 'tbd' and startTime >= " + startingTimes
+                        + " and endTime <= " + endingTime + "";
 
                 state = con.createStatement();
                 resultSet = state.executeQuery(SQL);
@@ -241,16 +242,14 @@ public class SeniorProject extends FinalProject {
 
         System.out.println("Farmingdale Oasis Assistant Login");
         System.out.println("---------------------------------");
-        System.out.println('\n');
         String[] pass = new String[2];
         do {
-            System.out.println("Username:");
+            System.out.print("Username: ");
             Scanner UNScan = new Scanner(System.in);
-
-            System.out.println("Password:");
-            Scanner PWScan = new Scanner(System.in);
-
             Username = UNScan.next();
+            
+            System.out.print("Password: ");
+            Scanner PWScan = new Scanner(System.in);
             Password = PWScan.next();
 
             // Store Login creds to text file
@@ -266,7 +265,6 @@ public class SeniorProject extends FinalProject {
             }
 
             if (pass[0].equals(Username) && pass[1].equals(Password)) {
-                System.out.println("Working");
                 Scanner keyboard = new Scanner(System.in);
                 String selector;
 
@@ -290,8 +288,8 @@ public class SeniorProject extends FinalProject {
                         removeRecord();
                         break;
                     case "4":
-                        System.out.println("");
-                        System.exit(0);
+                        System.out.println("Hope you didn't break anything - IT");
+                        menu();
                         break;
 
                     default:
