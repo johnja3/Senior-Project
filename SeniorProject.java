@@ -85,7 +85,7 @@ public class SeniorProject extends FinalProjectMain {
                 + "encrypt=true;"
                 + "trustServerCertificate=true;"
                 + "loginTimeout=30;";
-
+        String [] result = new String[11];
         Statement state = null;
         ResultSet resultSet = null;
         for (int p = 0; p < classes.length; p++) {
@@ -101,30 +101,15 @@ public class SeniorProject extends FinalProjectMain {
                 String format;
                 while (resultSet.next()) {
 
-//                    if (!resultSet.next())
-//                    {
-//                        SQL = "SELECT top 1 * FROM dbo.OASISDATA2 WHERE CourseName = '" + classes[p] + "' and Days = '"
-//                        + days[p] + "' and startTime >= " + startingTimes[p] 
-//                        + " and endTime <= " + endingTime + "";
-//                        
-//                    }
+                    
+
                     System.out.println(resultSet.getString(1)
                             + "    " + resultSet.getString(2) + "    " + resultSet.getString(3)
                             + "    " + resultSet.getString(4) + "    " + resultSet.getString(5)
                             + "    " + resultSet.getString(6) + "    " + resultSet.getString(7) + "    " + resultSet.getString(8)
                             + "    " + resultSet.getString(9) + "    " + resultSet.getString(10) + "    " + resultSet.getString(11));
 
-//                    format = String.format("%-25s", resultSet.getString(1));
-//                    format += String.format("%-40s", resultSet.getString(2));
-//                    format += String.format("%-40s", resultSet.getString(3));
-//                    format += String.format("%-40s", resultSet.getString(4));
-//                    format += String.format("%-40s", resultSet.getString(5));
-//                    format += String.format("%-40s", resultSet.getString(6));
-//                    format += String.format("%-40s", resultSet.getString(7));
-//                    format += String.format("%-40s", resultSet.getString(8));
-//                    format += String.format("%-25s", resultSet.getString(9));
-//                    format += String.format("%-25s", resultSet.getString(10));
-//                    format += String.format("%-25s", resultSet.getString(11));
+
                     i++;
 
                 }
@@ -172,22 +157,40 @@ public class SeniorProject extends FinalProjectMain {
         String[] days = new String[amountClass];
         days = selector1.split(",");
 
-        System.out.println("Please enter the starting time");
-        System.out.println("Example: 9:00, 10:00, 11:00, ect.");
-        int selector2;
-        selector2 = keyboard4.nextInt();
+//        System.out.println("Please enter the starting time");
+//        System.out.println("Example: 9:00, 10:00, 11:00, ect.");
+//        int selector2;
+//        selector2 = keyboard4.nextInt();
+//
+//        int startingTimes;
+//        startingTimes = selector2;
+//
+//        System.out.println("Please enter the ending time");
+//        System.out.println("Example: 4:00, 5:00, 6:00, ect.");
+//        int selectorTime;
+//        selectorTime = keyboard5.nextInt();
+//
+//        int endingTime;
+//        endingTime = selectorTime;
 
-        int startingTimes;
-        startingTimes = selector2;
+        
+        
+        System.out.println("Please enter the starting time");
+        System.out.println("Example: 9:00 (900), 10:00 (1000), 2:00 (1400), ect.");
+        String selector2;
+        selector2 = keyboard4.nextLine();
+
+        String[] startingTimes = new String[amountClass];
+
+        startingTimes = selector2.split(",");
 
         System.out.println("Please enter the ending time");
-        System.out.println("Example: 4:00, 5:00, 6:00, ect.");
-        int selectorTime;
-        selectorTime = keyboard5.nextInt();
+        System.out.println("Example: 3:00 (1500), 5:00 (1700), 6:00 (1800), ect.");
+        String selectorTime;
+        selectorTime = keyboard5.nextLine();
 
-        int endingTime;
-        endingTime = selectorTime;
-
+        String[] endingTime = new String[amountClass];
+        endingTime = selectorTime.split(",");
         System.out.println("----------------------------------------------------------------------------------------------------------------------------------------");
 
         String connectionUrl
@@ -200,13 +203,17 @@ public class SeniorProject extends FinalProjectMain {
                 + "loginTimeout=30;";
 
         Statement state = null;
+        Statement state2 = null;
+        Statement state3 = null;
         ResultSet resultSet = null;
+        ResultSet resultSet2 = null;
+        ResultSet resultSet3 = null;
         for (int p = 0; p < classes.length; p++) {
             try {
                 Connection con = DriverManager.getConnection(connectionUrl);
-                String SQL = "SELECT top 1 * FROM dbo.FacultyTest WHERE CourseName = '" + classes[p] + "' and Days = '"
-                        + days[p] + "' and Instructor = 'tbd' and startTime >= " + startingTimes
-                        + " and endTime <= " + endingTime + "";
+                String SQL = "SELECT * FROM dbo.FacultyTest WHERE CourseName = '" + classes[p] + "' and Days = '"
+                        + days[p] + "' and Instructor = 'tbd' and startTime >= " + startingTimes[p]
+                        + " and endTime <= " + endingTime[p] + "";
 
                 state = con.createStatement();
                 resultSet = state.executeQuery(SQL);
@@ -228,7 +235,64 @@ public class SeniorProject extends FinalProjectMain {
                 e.printStackTrace();
             }
         }
+        
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------");
 
+        int professorNum;
+        System.out.print("How many classes would you like to select: ");
+        professorNum = keyboard6.nextInt();
+        
+        String crnStore;
+        String []crn = new String[professorNum];
+        System.out.print("Enter the CRN numbers of the classes you would like to teach: ");
+        crnStore = keyboard7.nextLine();
+        crn = crnStore.split(",");
+        
+        
+        connectionUrl
+                = "jdbc:sqlserver://bcs430-final-project.database.windows.net;"
+                + "database=OASIS ASSISTANT;"
+                + "user=farmingdale@bcs430-final-project;"
+                + "password=bcs430w!;"
+                + "encrypt=true;"
+                + "trustServerCertificate=true;"
+                + "loginTimeout=30;";
+
+      System.out.println("----------------------------------------------------------------------------------------------------------------------------------------");
+
+        for (int p = 0; p < classes.length; p++) {
+            try {
+                Connection con = DriverManager.getConnection(connectionUrl);
+                Connection con2 = DriverManager.getConnection(connectionUrl);
+                Connection con3 = DriverManager.getConnection(connectionUrl);
+                String SQL = "UPDATE dbo.FacultyTest SET Instructor = 'Jonathan Hugo' WHERE CRN = '" + crn[p] + "'";
+                String SQLoutput = "SELECT * FROM dbo.FacultyTest Where CRN = '" + crn[p] + "'";
+                String SQLReset = "UPDATE dbo.FacultyTest SET Instructor = 'TBD' WHERE CRN = '" + crn[p] + "'";
+               
+                state = con.createStatement();
+                state2 = con2.createStatement();
+                state3 = con3.createStatement();
+                state2.executeUpdate(SQL);
+                resultSet3 = state3.executeQuery(SQLoutput);
+                int i = 1;
+
+                while (resultSet3.next()) {
+
+                    System.out.println(resultSet3.getString(1)
+                            + "    " + resultSet3.getString(2) + "    " + resultSet3.getString(3)
+                            + "    " + resultSet3.getString(4) + "    " + resultSet3.getString(5)
+                            + "    " + resultSet3.getString(6) + "    " + resultSet3.getString(7) + "    " + resultSet3.getString(8)
+                            + "    " + resultSet3.getString(9) + "    " + resultSet3.getString(10) + "    " + resultSet3.getString(11));
+
+                    i++;
+
+                }
+                 state.executeUpdate(SQLReset);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         System.out.println("----------------------------------------------------------------------------------------------------------------------------------------");
 
         menu();
@@ -253,7 +317,8 @@ public class SeniorProject extends FinalProjectMain {
             Password = PWScan.next();
 
             // Store Login creds to text file
-            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\jorda\\Documents\\School Shtuffs\\Senior Project\\LoginTest\\LoginDB.txt"));
+            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Jonathan\\Desktop\\SeniorProject\\SeniorProject\\SeniorProject\\LoginDB.txt"));
+                                                                    
             String userFromFile, passFromFile, line;
 
             int i = 0;
