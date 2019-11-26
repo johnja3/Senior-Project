@@ -14,9 +14,9 @@ import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.FileReader;
+import javax.swing.*;
 
-
-public class SeniorProject extends FinalProjectMain {
+public class SeniorProject extends FinalProject {
 
     public static void student() throws IOException {
 
@@ -85,7 +85,7 @@ public class SeniorProject extends FinalProjectMain {
                 + "encrypt=true;"
                 + "trustServerCertificate=true;"
                 + "loginTimeout=30;";
-        String [] result = new String[11];
+        String[][] result = new String[classes.length][11];
         Statement state = null;
         ResultSet resultSet = null;
         for (int p = 0; p < classes.length; p++) {
@@ -97,20 +97,20 @@ public class SeniorProject extends FinalProjectMain {
 
                 state = con.createStatement();
                 resultSet = state.executeQuery(SQL);
-                int i = 1;
+
                 String format;
                 while (resultSet.next()) {
 
-                    
+                    for (int i = 0; i < 11; i++) {
+                        result[p][i] = resultSet.getString(i + 1);
+
+                    }
 
                     System.out.println(resultSet.getString(1)
                             + "    " + resultSet.getString(2) + "    " + resultSet.getString(3)
                             + "    " + resultSet.getString(4) + "    " + resultSet.getString(5)
                             + "    " + resultSet.getString(6) + "    " + resultSet.getString(7) + "    " + resultSet.getString(8)
                             + "    " + resultSet.getString(9) + "    " + resultSet.getString(10) + "    " + resultSet.getString(11));
-
-
-                    i++;
 
                 }
 
@@ -120,6 +120,35 @@ public class SeniorProject extends FinalProjectMain {
         }
 
         System.out.println("----------------------------------------------------------------------------------------------------------------------------------------");
+
+        System.out.println("TESTINGGGGGGG OUTPUT!!!!!!!");
+        for (int p = 0; p < classes.length; p++) {
+
+            for (int i = 0; i < 11; i++) {
+
+                System.out.printf("%-8s", result[p][i]);
+            }
+
+            System.out.println();
+
+        }
+        
+        
+       
+        
+        JFrame frame = new JFrame("JOptionPane show MessageDialog");
+        
+        for (int i = 0; i < classes.length; i++)
+        {
+        JOptionPane.showMessageDialog(frame, result[i][0] + "    " + result[i][1] + "   " + result[i][2] + "   " + result[i][3] + "    "+result[i][4] + "  " + result[i][5]
+        +"  " + result[i][6] + "  " + result[i][7] + "   " + result[i][8] + "   " + result[i][9] +"    " +result[i][10]);
+        }
+        
+        
+        
+        
+        
+        
 
         menu();
 
@@ -172,9 +201,6 @@ public class SeniorProject extends FinalProjectMain {
 //
 //        int endingTime;
 //        endingTime = selectorTime;
-
-        
-        
         System.out.println("Please enter the starting time");
         System.out.println("Example: 9:00 (900), 10:00 (1000), 2:00 (1400), ect.");
         String selector2;
@@ -235,20 +261,19 @@ public class SeniorProject extends FinalProjectMain {
                 e.printStackTrace();
             }
         }
-        
+
         System.out.println("----------------------------------------------------------------------------------------------------------------------------------------");
 
         int professorNum;
         System.out.print("How many classes would you like to select: ");
         professorNum = keyboard6.nextInt();
-        
+
         String crnStore;
-        String []crn = new String[professorNum];
+        String[] crn = new String[professorNum];
         System.out.print("Enter the CRN numbers of the classes you would like to teach: ");
         crnStore = keyboard7.nextLine();
         crn = crnStore.split(",");
-        
-        
+
         connectionUrl
                 = "jdbc:sqlserver://bcs430-final-project.database.windows.net;"
                 + "database=OASIS ASSISTANT;"
@@ -258,9 +283,9 @@ public class SeniorProject extends FinalProjectMain {
                 + "trustServerCertificate=true;"
                 + "loginTimeout=30;";
 
-      System.out.println("----------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------");
 
-        for (int p = 0; p < classes.length; p++) {
+        for (int p = 0; p < professorNum; p++) {
             try {
                 Connection con = DriverManager.getConnection(connectionUrl);
                 Connection con2 = DriverManager.getConnection(connectionUrl);
@@ -268,13 +293,13 @@ public class SeniorProject extends FinalProjectMain {
                 String SQL = "UPDATE dbo.FacultyTest SET Instructor = 'Jonathan Hugo' WHERE CRN = '" + crn[p] + "'";
                 String SQLoutput = "SELECT * FROM dbo.FacultyTest Where CRN = '" + crn[p] + "'";
                 String SQLReset = "UPDATE dbo.FacultyTest SET Instructor = 'TBD' WHERE CRN = '" + crn[p] + "'";
-               
+
                 state = con.createStatement();
                 state2 = con2.createStatement();
                 state3 = con3.createStatement();
                 state2.executeUpdate(SQL);
                 resultSet3 = state3.executeQuery(SQLoutput);
-                int i = 1;
+            
 
                 while (resultSet3.next()) {
 
@@ -284,10 +309,10 @@ public class SeniorProject extends FinalProjectMain {
                             + "    " + resultSet3.getString(6) + "    " + resultSet3.getString(7) + "    " + resultSet3.getString(8)
                             + "    " + resultSet3.getString(9) + "    " + resultSet3.getString(10) + "    " + resultSet3.getString(11));
 
-                    i++;
+                   
 
                 }
-                 state.executeUpdate(SQLReset);
+//                 state.executeUpdate(SQLReset);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -304,21 +329,21 @@ public class SeniorProject extends FinalProjectMain {
         String Username;
         String Password;
 
-        System.out.println("Farmingdale Oasis Assistant Login");
+        System.out.println("Farmingdale Oasis Assistant Admin Login");
         System.out.println("---------------------------------");
         String[] pass = new String[2];
         do {
             System.out.print("Username: ");
             Scanner UNScan = new Scanner(System.in);
             Username = UNScan.next();
-            
+
             System.out.print("Password: ");
             Scanner PWScan = new Scanner(System.in);
             Password = PWScan.next();
 
             // Store Login creds to text file
             BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Jonathan\\Desktop\\SeniorProject\\SeniorProject\\SeniorProject\\LoginDB.txt"));
-                                                                    
+
             String userFromFile, passFromFile, line;
 
             int i = 0;
@@ -374,19 +399,189 @@ public class SeniorProject extends FinalProjectMain {
     }
 
     public static void updateTable() throws IOException {
-        System.out.println("Testing update table function");
+        Scanner keyboard = new Scanner(System.in);
+        Scanner keyboard2 = new Scanner(System.in);
+        Scanner keyboard3 = new Scanner(System.in);
+
+        String columnChange;
+        System.out.println("What column would you like to change?");
+        System.out.println("(Ex. CRN, CourseName, Cred, Title, Days, StartTime, Endtime, Act, Rem, Instructor, Location)");
+        columnChange = keyboard.nextLine();
+
+        String changeTo;
+        System.out.println("What would you like to change it to?:");
+        changeTo = keyboard2.nextLine();
+
+        String crn;
+        System.out.println("What is the CRN of the course you are updating?:");
+        crn = keyboard3.nextLine();
+
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------");
+
+        String connectionUrl
+                = "jdbc:sqlserver://bcs430-final-project.database.windows.net;"
+                + "database=OASIS ASSISTANT;"
+                + "user=farmingdale@bcs430-final-project;"
+                + "password=bcs430w!;"
+                + "encrypt=true;"
+                + "trustServerCertificate=true;"
+                + "loginTimeout=30;";
+        String[] result = new String[11];
+        Statement state = null;
+        Statement state2 = null;
+        ResultSet resultSet = null;
+        ResultSet resultSet2 = null;
+
+        try {
+            Connection con = DriverManager.getConnection(connectionUrl);
+            Connection con2 = DriverManager.getConnection(connectionUrl);
+            String SQL = "UPDATE dbo.Admintest SET " + columnChange + " = '" + changeTo + "' where crn = '" + crn + "'";
+            String SQLoutput = "Select * from dbo.Admintest where crn = '" + changeTo + "'";
+            state = con.createStatement();
+            state2 = con2.createStatement();
+            state.executeUpdate(SQL);
+            resultSet2 = state2.executeQuery(SQLoutput);
+            int i = 1;
+            String format;
+            System.out.println("Here is your updated record!");
+            while (resultSet2.next()) {
+
+                System.out.println(resultSet2.getString(1)
+                        + "    " + resultSet2.getString(2) + "    " + resultSet2.getString(3)
+                        + "    " + resultSet2.getString(4) + "    " + resultSet2.getString(5)
+                        + "    " + resultSet2.getString(6) + "    " + resultSet2.getString(7) + "    " + resultSet2.getString(8)
+                        + "    " + resultSet2.getString(9) + "    " + resultSet2.getString(10) + "    " + resultSet2.getString(11));
+
+                i++;
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------");
 
         administrator();
     }
 
     public static void addRecord() throws IOException {
-        System.out.println("Testing add record function");
+
+        Scanner keyboard = new Scanner(System.in);
+
+        String[] classes = new String[9];
+        String tempClass;
+        System.out.println("Enter course you would like to add in the following format!");
+        System.out.println("EX. CRN, Course Name, Credit, Title, Days, Start Time, End Time, Instructor, Location");
+        tempClass = keyboard.nextLine();
+        classes = tempClass.split(",");
+
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------");
+
+        String connectionUrl
+                = "jdbc:sqlserver://bcs430-final-project.database.windows.net;"
+                + "database=OASIS ASSISTANT;"
+                + "user=farmingdale@bcs430-final-project;"
+                + "password=bcs430w!;"
+                + "encrypt=true;"
+                + "trustServerCertificate=true;"
+                + "loginTimeout=30;";
+        String[] result = new String[11];
+        Statement state = null;
+        Statement state2 = null;
+        ResultSet resultSet = null;
+        ResultSet resultSet2 = null;
+
+        try {
+            Connection con = DriverManager.getConnection(connectionUrl);
+            Connection con2 = DriverManager.getConnection(connectionUrl);
+            String SQL = "Insert into dbo.Admintest (CRN, CourseName, Cred, Title, Days, StartTime, EndTime, Act, Rem, Instructor, Location)"
+                    + "Values ('" + classes[0] + "', '" + classes[1] + "', '" + classes[2] + "', '" + classes[3] + "', '" + classes[4] + "', "
+                    + classes[5] + ", " + classes[6] + ", '0', '30', '" + classes[7] + "', '" + classes[8] + "')";
+            String SQLoutput = "Select * from dbo.Admintest where crn = '" + classes[0] + "'";
+            state = con.createStatement();
+            state2 = con2.createStatement();
+            state.executeUpdate(SQL);
+            resultSet2 = state2.executeQuery(SQLoutput);
+            int i = 1;
+            String format;
+            System.out.println("Here is your added class!");
+            while (resultSet2.next()) {
+
+                System.out.println(resultSet2.getString(1)
+                        + "    " + resultSet2.getString(2) + "    " + resultSet2.getString(3)
+                        + "    " + resultSet2.getString(4) + "    " + resultSet2.getString(5)
+                        + "    " + resultSet2.getString(6) + "    " + resultSet2.getString(7) + "    " + resultSet2.getString(8)
+                        + "    " + resultSet2.getString(9) + "    " + resultSet2.getString(10) + "    " + resultSet2.getString(11));
+
+                i++;
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------");
+
         administrator();
     }
 
     public static void removeRecord() throws IOException {
 
-        System.out.println("Testing remove record function");
+        Scanner keyboard = new Scanner(System.in);
+
+        String crn;
+        System.out.println("Enter the CRN you want to remove: ");
+        crn = keyboard.next();
+
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------");
+
+        String connectionUrl
+                = "jdbc:sqlserver://bcs430-final-project.database.windows.net;"
+                + "database=OASIS ASSISTANT;"
+                + "user=farmingdale@bcs430-final-project;"
+                + "password=bcs430w!;"
+                + "encrypt=true;"
+                + "trustServerCertificate=true;"
+                + "loginTimeout=30;";
+        String[] result = new String[11];
+        Statement state = null;
+        Statement state2 = null;
+        ResultSet resultSet = null;
+        ResultSet resultSet2 = null;
+
+        try {
+            Connection con = DriverManager.getConnection(connectionUrl);
+            Connection con2 = DriverManager.getConnection(connectionUrl);
+            String SQL = "Delete from dbo.Admintest where crn = '" + crn + "'";
+            String SQLoutput = "Select * from dbo.Admintest where crn = '" + crn + "'";
+            state = con.createStatement();
+            state2 = con2.createStatement();
+            state.executeUpdate(SQL);
+            resultSet2 = state2.executeQuery(SQLoutput);
+            int i = 1;
+            String format;
+            System.out.println("Record deleted!");
+            while (resultSet2.next()) {
+
+                System.out.println(resultSet2.getString(1)
+                        + "    " + resultSet2.getString(2) + "    " + resultSet2.getString(3)
+                        + "    " + resultSet2.getString(4) + "    " + resultSet2.getString(5)
+                        + "    " + resultSet2.getString(6) + "    " + resultSet2.getString(7) + "    " + resultSet2.getString(8)
+                        + "    " + resultSet2.getString(9) + "    " + resultSet2.getString(10) + "    " + resultSet2.getString(11));
+
+                System.out.println("Class has been deleted!");
+                i++;
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------");
+
         administrator();
     }
 
