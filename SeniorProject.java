@@ -80,8 +80,14 @@ public class SeniorProject extends FinalProject {
         String[] professor = new String[amountClass];
 
         professor = selectProfessor.split(",");
+String format;
+        String[] header = new String[]{"CRN", "Course Name", "Credit", "Title", "Days", "Start Time", "End Time", "Act", "Rem", "Instructor", "Location"};
+        String headerOutput;
 
-        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------");
+        headerOutput = String.format(" %-8s%-12s  %-24s %-26s%-8s %-11s %-12s %-6s %-13s %-22s %-15s", header[0], header[1], header[2], header[3], header[4], header[5], header[6], header[7], header[8], header[9], header[10]);
+        System.out.println(headerOutput);
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
 
         String connectionUrl
                 = "jdbc:sqlserver://bcs430-final-project.database.windows.net;"
@@ -104,7 +110,7 @@ public class SeniorProject extends FinalProject {
                 state = con.createStatement();
                 resultSet = state.executeQuery(SQL);
 
-                String format;
+                
                 while (resultSet.next()) {
 
                     for (int i = 0; i < 11; i++) {
@@ -112,67 +118,29 @@ public class SeniorProject extends FinalProject {
 
                     }
 
-//                    if ()
-//                    {
-//                        System.out.println( classes[p] + " doesnt exist within the parameters you entered. ");
-//                        System.out.println("Please enter new parameters:");
-//                        
-//                         System.out.println("Please enter the classes you want to take. To return please press 0:");
-//        System.out.println("Example: (BCS102, MTH130, BUS101)");
-//
-//       
-//        selector = keyboard2.nextLine();
-//
-//        
-//
-//        classes = selector.split(",");
-//        System.out.println("Please enter the days you would like to come to school.");
-//        System.out.println("Example: MW, TR, WF, M, T, R, F");
-//      
-//        selector1 = keyboard3.nextLine();
-//
-//      
-//        days = selector1.split(",");
-//
-//        System.out.println("Please enter the starting time");
-//        System.out.println("Example: 9:00 (900), 10:00 (1000), 2:00 (1400), ect.");
-//     
-//        selector2 = keyboard4.nextLine();
-//
-//
-//        startingTimes = selector2.split(",");
-//
-//        System.out.println("Please enter the ending time");
-//        System.out.println("Example: 3:00 (1500), 5:00 (1700), 6:00 (1800), ect.");
-//       
-//        selectorTime = keyboard5.nextLine();
-//
-//
-//        endingTime = selectorTime.split(",");
-//
-//        System.out.println("Please enter first or last name of preffered professor: ");
-//        System.out.println("Example: Mary, Fried, etc. (If you don't have a preference add a space. for Example: Mary, ,Fried)");
-//
-//      
-//        selectProfessor = keyboard6.nextLine();
-//     
-//
-//        professor = selectProfessor.split(",");
-//                    }
-                    System.out.println(resultSet.getString(1)
-                            + "    " + resultSet.getString(2) + "    " + resultSet.getString(3)
-                            + "    " + resultSet.getString(4) + "    " + resultSet.getString(5)
-                            + "    " + resultSet.getString(6) + "    " + resultSet.getString(7) + "    " + resultSet.getString(8)
-                            + "    " + resultSet.getString(9) + "    " + resultSet.getString(10) + "    " + resultSet.getString(11));
 
+//                    System.out.println(resultSet.getString(1)
+//                            + "    " + resultSet.getString(2) + "    " + resultSet.getString(3)
+//                            + "    " + resultSet.getString(4) + "    " + resultSet.getString(5)
+//                            + "    " + resultSet.getString(6) + "    " + resultSet.getString(7) + "    " + resultSet.getString(8)
+//                            + "    " + resultSet.getString(9) + "    " + resultSet.getString(10) + "    " + resultSet.getString(11));
+
+                    
+                    
+                    format = String.format("%-10s %-13s %-8s %-40s %-10s %-10s %-10s %-7s %-7s %-27s %-5s", resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5),
+                            resultSet.getString(6), resultSet.getString(7), resultSet.getString(8), resultSet.getString(9), resultSet.getString(10), resultSet.getString(11));
+                    System.out.println(format);
                 }
+                
+                
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
-        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
         System.out.println("If a class you searched for does not appear, it may be unavailable. Search for a different class or change times-days");
 
         int studentNum;
@@ -196,13 +164,12 @@ public class SeniorProject extends FinalProject {
 
         Statement state2 = null;
         ResultSet resultSet2 = null;
-        String format;
-        String[] header = new String[]{"CRN", "Course Name", "Credit", "Title", "Days", "Start Time", "End Time", "Act", "Rem", "Instructor", "Location"};
-        String headerOutput;
+        
+        
 
-        headerOutput = String.format(" %-8s%-12s  %-24s %-26s%-8s %-11s %-11s %-9s %-15s %-20s %-15s", header[0], header[1], header[2], header[3], header[4], header[5], header[6], header[7], header[8], header[9], header[10]);
+        headerOutput = String.format(" %-8s%-12s  %-24s %-26s%-8s %-11s %-12s %-6s %-13s %-22s %-15s", header[0], header[1], header[2], header[3], header[4], header[5], header[6], header[7], header[8], header[9], header[10]);
         System.out.println(headerOutput);
-        System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
 
         for (int p = 0; p < studentNum; p++) {
             try {
@@ -214,10 +181,10 @@ public class SeniorProject extends FinalProject {
 
                 while (resultSet2.next()) {
 
-                    for (int i = 0; i < 11; i++) {
-                        result[p][i] = resultSet2.getString(i + 1);
-
-                    }
+//                    for (int i = 0; i < 11; i++) {
+//                        result[p][i] = resultSet2.getString(i + 1);
+//
+//                    }
 
                     format = String.format("%-10s %-13s %-8s %-40s %-10s %-10s %-10s %-7s %-7s %-27s %-5s", resultSet2.getString(1), resultSet2.getString(2), resultSet2.getString(3), resultSet2.getString(4), resultSet2.getString(5),
                             resultSet2.getString(6), resultSet2.getString(7), resultSet2.getString(8), resultSet2.getString(9), resultSet2.getString(10), resultSet2.getString(11));
@@ -231,45 +198,16 @@ public class SeniorProject extends FinalProject {
 
                 }
 
+                
+                
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
-        System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
 
-//        JFrame frame = new JFrame("JOptionPane show MessageDialog");
-//        for (int i = 0; i < studentNum; i++)
-//        {
-//        JOptionPane.showMessageDialog(frame, result[studentNum-i][0] + "    " + result[studentNum - i][1] + "   " + result[studentNum - i][2] + "   " + result[studentNum-i][3] + "    "+result[studentNum-i][4] + "  " + result[studentNum-i][5]
-//        +"  " + result[studentNum-i][6] + "  " + result[studentNum - i][7] + "   " + result[studentNum-i][8] + "   " + result[studentNum-i][9] +"    " +result[studentNum-i][10] + "\n" + result[studentNum-i][0] + "    " + result[studentNum-i][1] + "   " + result[studentNum-i][2] + "   " + result[studentNum-i][3] + "    "+result[studentNum-i][4] + "  " + result[studentNum-i][5]
-//        +"  " + result[studentNum-i-1][6] + "  " + result[studentNum - i][7] + "   " + result[i][8] + "   " + result[i][9] +"    " +result[i][10] + "\n");
-//        
-//        }
-//        String[][] display2DArray = new String[studentNum][11];
-//        
-//        for (int i = 0; i < studentNum; i++) {
-//            for (int j = 0; j < 10; j++) {
-//                
-//            }
-//        }
-//        ArrayList<String> output = new ArrayList<String>();
-//        ArrayList<String> outputNew = new ArrayList<String>();
-//        String newOutput;
-//        for (int i = 0; i < studentNum; i++) {
-//
-//            for (int j = 0; j < 10; j++) {
-//                output.add(result[i][j]);
-//
-//            }
-//
-//            output.add("\n");
-//        }
-//
-//        newOutput = Arrays.toString(output.toArray()).replace("[", "").replace("]", "").replace(",", "").replace(" ", "      ");
-//
-//        JOptionPane.showMessageDialog(frame, String.format("%10", newOutput));
-        menu();
+menu();
 
     }
 
@@ -366,7 +304,13 @@ public class SeniorProject extends FinalProject {
 
                 String[] endingTime = new String[amountClass];
                 endingTime = selectorTime.split(",");
-                System.out.println("----------------------------------------------------------------------------------------------------------------------------------------");
+                String[] header = new String[]{"CRN", "Course Name", "Credit", "Title", "Days", "Start Time", "End Time", "Act", "Rem", "Instructor", "Location"};
+                String headerOutput;
+
+                headerOutput = String.format(" %-8s%-12s  %-24s %-26s%-8s %-11s %-12s %-6s %-13s %-22s %-15s", header[0], header[1], header[2], header[3], header[4], header[5], header[6], header[7], header[8], header[9], header[10]);
+                System.out.println(headerOutput);
+                System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
 
                 String connectionUrl
                         = "jdbc:sqlserver://bcs430-final-project.database.windows.net;"
@@ -383,6 +327,7 @@ public class SeniorProject extends FinalProject {
                 ResultSet resultSet = null;
                 ResultSet resultSet2 = null;
                 ResultSet resultSet3 = null;
+                String format;
                 for (int p = 0; p < classes.length; p++) {
                     try {
                         Connection con = DriverManager.getConnection(connectionUrl);
@@ -395,12 +340,15 @@ public class SeniorProject extends FinalProject {
 
                         while (resultSet.next()) {
 
-                            System.out.println(resultSet.getString(1)
-                                    + "    " + resultSet.getString(2) + "    " + resultSet.getString(3)
-                                    + "    " + resultSet.getString(4) + "    " + resultSet.getString(5)
-                                    + "    " + resultSet.getString(6) + "    " + resultSet.getString(7) + "    " + resultSet.getString(8)
-                                    + "    " + resultSet.getString(9) + "    " + resultSet.getString(10) + "    " + resultSet.getString(11));
+//                            System.out.println(resultSet.getString(1)
+//                                    + "    " + resultSet.getString(2) + "    " + resultSet.getString(3)
+//                                    + "    " + resultSet.getString(4) + "    " + resultSet.getString(5)
+//                                    + "    " + resultSet.getString(6) + "    " + resultSet.getString(7) + "    " + resultSet.getString(8)
+//                                    + "    " + resultSet.getString(9) + "    " + resultSet.getString(10) + "    " + resultSet.getString(11));
+                    format = String.format("%-10s %-13s %-8s %-40s %-10s %-10s %-10s %-7s %-7s %-27s %-5s", resultSet3.getString(1), resultSet3.getString(2), resultSet3.getString(3), resultSet3.getString(4), resultSet3.getString(5),
+                                resultSet3.getString(6), resultSet3.getString(7), resultSet3.getString(8), resultSet3.getString(9), resultSet3.getString(10), resultSet3.getString(11));
 
+                        System.out.println(format);
                         }
 
                     } catch (Exception e) {
@@ -408,7 +356,9 @@ public class SeniorProject extends FinalProject {
                     }
                 }
 
-                System.out.println("----------------------------------------------------------------------------------------------------------------------------------------");
+                System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
+                System.out.println("If a class you searched for does not appear, it may be unavailable. Search for a different class or change times-days");
 
                 int professorNum;
                 System.out.print("How many classes would you like to select: ");
@@ -429,7 +379,13 @@ public class SeniorProject extends FinalProject {
                         + "trustServerCertificate=true;"
                         + "loginTimeout=30;";
 
-                System.out.println("----------------------------------------------------------------------------------------------------------------------------------------");
+                
+                
+
+                headerOutput = String.format(" %-8s%-12s  %-24s %-26s%-8s %-11s %-12s %-6s %-13s %-22s %-15s", header[0], header[1], header[2], header[3], header[4], header[5], header[6], header[7], header[8], header[9], header[10]);
+                System.out.println(headerOutput);
+                System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
 
                 for (int p = 0; p < professorNum; p++) {
                     try {
@@ -448,25 +404,34 @@ public class SeniorProject extends FinalProject {
 
                         while (resultSet3.next()) {
 
-                            System.out.println(resultSet3.getString(1)
-                                    + "    " + resultSet3.getString(2) + "    " + resultSet3.getString(3)
-                                    + "    " + resultSet3.getString(4) + "    " + resultSet3.getString(5)
-                                    + "    " + resultSet3.getString(6) + "    " + resultSet3.getString(7) + "    " + resultSet3.getString(8)
-                                    + "    " + resultSet3.getString(9) + "    " + resultSet3.getString(10) + "    " + resultSet3.getString(11));
+//                            System.out.println(resultSet3.getString(1)
+//                                    + "    " + resultSet3.getString(2) + "    " + resultSet3.getString(3)
+//                                    + "    " + resultSet3.getString(4) + "    " + resultSet3.getString(5)
+//                                    + "    " + resultSet3.getString(6) + "    " + resultSet3.getString(7) + "    " + resultSet3.getString(8)
+//                                    + "    " + resultSet3.getString(9) + "    " + resultSet3.getString(10) + "    " + resultSet3.getString(11));
+                       format = String.format("%-10s %-13s %-8s %-40s %-10s %-10s %-10s %-7s %-7s %-27s %-5s", resultSet3.getString(1), resultSet3.getString(2), resultSet3.getString(3), resultSet3.getString(4), resultSet3.getString(5),
+                                resultSet3.getString(6), resultSet3.getString(7), resultSet3.getString(8), resultSet3.getString(9), resultSet3.getString(10), resultSet3.getString(11));
 
+                        System.out.println(format);
                         }
+
+                        
 //                 state.executeUpdate(SQLReset);
 
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
-                System.out.println("----------------------------------------------------------------------------------------------------------------------------------------");
+                System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
             } else {
                 System.out.println("Invalid credentials! Please try again");
             }
+            
+            
+            menu();
         } while (pass[0] != Username || pass[1] != Password);
-        menu();
+        
 
     }
 
@@ -561,8 +526,14 @@ public class SeniorProject extends FinalProject {
         String changeTo;
         System.out.println("What would you like to change it to?:");
         changeTo = keyboard2.nextLine();
+        String format;
+        String[] header = new String[]{"CRN", "Course Name", "Credit", "Title", "Days", "Start Time", "End Time", "Act", "Rem", "Instructor", "Location"};
+        String headerOutput;
 
-        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------");
+        headerOutput = String.format(" %-8s%-12s  %-24s %-26s%-8s %-11s %-12s %-6s %-13s %-22s %-15s", header[0], header[1], header[2], header[3], header[4], header[5], header[6], header[7], header[8], header[9], header[10]);
+        System.out.println(headerOutput);
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
 
         String connectionUrl
                 = "jdbc:sqlserver://bcs430-final-project.database.windows.net;"
@@ -588,25 +559,29 @@ public class SeniorProject extends FinalProject {
             state.executeUpdate(SQL);
             resultSet2 = state2.executeQuery(SQLoutput);
             int i = 1;
-            String format;
+
             System.out.println("Here is your updated record!");
-            while (resultSet2.next()) {
+//            while (resultSet2.next()) {
+//
+//                System.out.println(resultSet2.getString(1)
+//                        + "    " + resultSet2.getString(2) + "    " + resultSet2.getString(3)
+//                        + "    " + resultSet2.getString(4) + "    " + resultSet2.getString(5)
+//                        + "    " + resultSet2.getString(6) + "    " + resultSet2.getString(7) + "    " + resultSet2.getString(8)
+//                        + "    " + resultSet2.getString(9) + "    " + resultSet2.getString(10) + "    " + resultSet2.getString(11));
+//
+//                i++;
+//
+//            }
 
-                System.out.println(resultSet2.getString(1)
-                        + "    " + resultSet2.getString(2) + "    " + resultSet2.getString(3)
-                        + "    " + resultSet2.getString(4) + "    " + resultSet2.getString(5)
-                        + "    " + resultSet2.getString(6) + "    " + resultSet2.getString(7) + "    " + resultSet2.getString(8)
-                        + "    " + resultSet2.getString(9) + "    " + resultSet2.getString(10) + "    " + resultSet2.getString(11));
-
-                i++;
-
-            }
+            format = String.format("%-10s %-13s %-8s %-40s %-10s %-10s %-10s %-7s %-7s %-27s %-5s", resultSet2.getString(1), resultSet2.getString(2), resultSet2.getString(3), resultSet2.getString(4), resultSet2.getString(5),
+                    resultSet2.getString(6), resultSet2.getString(7), resultSet2.getString(8), resultSet2.getString(9), resultSet2.getString(10), resultSet2.getString(11));
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
 
         menu();
     }
@@ -621,8 +596,16 @@ public class SeniorProject extends FinalProject {
         System.out.println("EX. CRN, Course Name, Credit, Title, Days, Start Time, End Time, Instructor, Location");
         tempClass = keyboard.nextLine();
         classes = tempClass.split(",");
+        String format;
+        String[] header = new String[]{"CRN", "Course Name", "Credit", "Title", "Days", "Start Time", "End Time", "Act", "Rem", "Instructor", "Location"};
+        String headerOutput;
 
-        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------");
+        headerOutput = String.format(" %-8s%-12s  %-24s %-26s%-8s %-11s %-12s %-6s %-13s %-22s %-15s", header[0], header[1], header[2], header[3], header[4], header[5], header[6], header[7], header[8], header[9], header[10]);
+        System.out.println("Here is your added class!");
+        System.out.println(headerOutput);
+        
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
 
         String connectionUrl
                 = "jdbc:sqlserver://bcs430-final-project.database.windows.net;"
@@ -650,25 +633,31 @@ public class SeniorProject extends FinalProject {
             state.executeUpdate(SQL);
             resultSet2 = state2.executeQuery(SQLoutput);
             int i = 1;
-            String format;
-            System.out.println("Here is your added class!");
+
+            
             while (resultSet2.next()) {
+//
+//                System.out.println(resultSet2.getString(1)
+//                        + "    " + resultSet2.getString(2) + "    " + resultSet2.getString(3)
+//                        + "    " + resultSet2.getString(4) + "    " + resultSet2.getString(5)
+//                        + "    " + resultSet2.getString(6) + "    " + resultSet2.getString(7) + "    " + resultSet2.getString(8)
+//                        + "    " + resultSet2.getString(9) + "    " + resultSet2.getString(10) + "    " + resultSet2.getString(11));
+//
+//                i++;
+//
 
-                System.out.println(resultSet2.getString(1)
-                        + "    " + resultSet2.getString(2) + "    " + resultSet2.getString(3)
-                        + "    " + resultSet2.getString(4) + "    " + resultSet2.getString(5)
-                        + "    " + resultSet2.getString(6) + "    " + resultSet2.getString(7) + "    " + resultSet2.getString(8)
-                        + "    " + resultSet2.getString(9) + "    " + resultSet2.getString(10) + "    " + resultSet2.getString(11));
-
-                i++;
-
+format = String.format("%-10s %-13s %-8s %-40s %-10s %-10s %-10s %-7s %-7s %-27s %-5s", resultSet2.getString(1), resultSet2.getString(2), resultSet2.getString(3), resultSet2.getString(4), resultSet2.getString(5),
+                    resultSet2.getString(6), resultSet2.getString(7), resultSet2.getString(8), resultSet2.getString(9), resultSet2.getString(10), resultSet2.getString(11));
+                System.out.println(format);
             }
 
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
 
         menu();
     }
@@ -681,7 +670,14 @@ public class SeniorProject extends FinalProject {
         System.out.println("Enter the CRN you want to remove: ");
         crn = keyboard.next();
 
-        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------");
+        String format;
+        String[] header = new String[]{"CRN", "Course Name", "Credit", "Title", "Days", "Start Time", "End Time", "Act", "Rem", "Instructor", "Location"};
+        String headerOutput;
+
+        headerOutput = String.format(" %-8s%-12s  %-24s %-26s%-8s %-11s %-12s %-6s %-13s %-22s %-15s", header[0], header[1], header[2], header[3], header[4], header[5], header[6], header[7], header[8], header[9], header[10]);
+        System.out.println(headerOutput);
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
 
         String connectionUrl
                 = "jdbc:sqlserver://bcs430-final-project.database.windows.net;"
@@ -707,26 +703,15 @@ public class SeniorProject extends FinalProject {
             state.executeUpdate(SQL);
             resultSet2 = state2.executeQuery(SQLoutput);
             int i = 1;
-            String format;
+
             System.out.println("Record deleted!");
-            while (resultSet2.next()) {
-
-                System.out.println(resultSet2.getString(1)
-                        + "    " + resultSet2.getString(2) + "    " + resultSet2.getString(3)
-                        + "    " + resultSet2.getString(4) + "    " + resultSet2.getString(5)
-                        + "    " + resultSet2.getString(6) + "    " + resultSet2.getString(7) + "    " + resultSet2.getString(8)
-                        + "    " + resultSet2.getString(9) + "    " + resultSet2.getString(10) + "    " + resultSet2.getString(11));
-
-                System.out.println("Class has been deleted!");
-                i++;
-
-            }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
 
         menu();
     }
