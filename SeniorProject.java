@@ -57,6 +57,7 @@ public class SeniorProject extends FinalProject {
 
         System.out.println("Please enter the starting time");
         System.out.println("Example: 9:00 (900), 10:00 (1000), 2:00 (1400), ect.");
+        System.out.println("Example: 800,800,1000");
         String selector2;
         selector2 = keyboard4.nextLine();
 
@@ -66,6 +67,7 @@ public class SeniorProject extends FinalProject {
 
         System.out.println("Please enter the ending time");
         System.out.println("Example: 3:00 (1500), 5:00 (1700), 6:00 (1800), ect.");
+        System.out.println("Example: 1500,1800,1900");
         String selectorTime;
         selectorTime = keyboard5.nextLine();
 
@@ -74,6 +76,7 @@ public class SeniorProject extends FinalProject {
 
         System.out.println("Please enter first or last name of preffered professor: ");
         System.out.println("Example: Mary, Fried, etc. (If you don't have a preference add a space. for Example: Mary, ,Fried)");
+        System.out.println("Example: Mary, , or , , ");
 
         String selectProfessor;
         selectProfessor = keyboard6.nextLine();
@@ -345,8 +348,8 @@ menu();
 //                                    + "    " + resultSet.getString(4) + "    " + resultSet.getString(5)
 //                                    + "    " + resultSet.getString(6) + "    " + resultSet.getString(7) + "    " + resultSet.getString(8)
 //                                    + "    " + resultSet.getString(9) + "    " + resultSet.getString(10) + "    " + resultSet.getString(11));
-                    format = String.format("%-10s %-13s %-8s %-40s %-10s %-10s %-10s %-7s %-7s %-27s %-5s", resultSet3.getString(1), resultSet3.getString(2), resultSet3.getString(3), resultSet3.getString(4), resultSet3.getString(5),
-                                resultSet3.getString(6), resultSet3.getString(7), resultSet3.getString(8), resultSet3.getString(9), resultSet3.getString(10), resultSet3.getString(11));
+                    format = String.format("%-10s %-13s %-8s %-40s %-10s %-10s %-10s %-7s %-7s %-27s %-5s", resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5),
+                                resultSet.getString(6), resultSet.getString(7), resultSet.getString(8), resultSet.getString(9), resultSet.getString(10), resultSet.getString(11));
 
                         System.out.println(format);
                         }
