@@ -33,12 +33,11 @@ public class SeniorProject extends FinalProject {
         Scanner keyboard5 = new Scanner(System.in);
         Scanner keyboard6 = new Scanner(System.in);
         Scanner keyboard7 = new Scanner(System.in);
-        Scanner keyboard8 = new Scanner(System.in);
-        Scanner keyboard9 = new Scanner(System.in);
+
         int amountClass;
         System.out.println("How many classes are you going to take?");
         amountClass = keyboard.nextInt();
-        System.out.println("Please enter the classes you want to take. To return please press 0:");
+        System.out.println("Please enter the classes you want to take.");
         System.out.println("Example: (BCS102, MTH130, BUS101)");
 
         String selector;
@@ -76,21 +75,20 @@ public class SeniorProject extends FinalProject {
 
         System.out.println("Please enter first or last name of preffered professor: ");
         System.out.println("Example: Mary, Fried, etc. (If you don't have a preference add a space. for Example: Mary, ,Fried)");
-        System.out.println("Example: Mary, , or , , ");
+        System.out.println("Another Example: Mary, , or , , ");
 
         String selectProfessor;
         selectProfessor = keyboard6.nextLine();
         String[] professor = new String[amountClass];
 
         professor = selectProfessor.split(",");
-String format;
+        String format;
         String[] header = new String[]{"CRN", "Course Name", "Credit", "Title", "Days", "Start Time", "End Time", "Act", "Rem", "Instructor", "Location"};
         String headerOutput;
 
         headerOutput = String.format(" %-8s%-12s  %-24s %-26s%-8s %-11s %-12s %-6s %-13s %-22s %-15s", header[0], header[1], header[2], header[3], header[4], header[5], header[6], header[7], header[8], header[9], header[10]);
         System.out.println(headerOutput);
         System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
-
 
         String connectionUrl
                 = "jdbc:sqlserver://bcs430-final-project.database.windows.net;"
@@ -113,7 +111,6 @@ String format;
                 state = con.createStatement();
                 resultSet = state.executeQuery(SQL);
 
-                
                 while (resultSet.next()) {
 
                     for (int i = 0; i < 11; i++) {
@@ -121,21 +118,10 @@ String format;
 
                     }
 
-
-//                    System.out.println(resultSet.getString(1)
-//                            + "    " + resultSet.getString(2) + "    " + resultSet.getString(3)
-//                            + "    " + resultSet.getString(4) + "    " + resultSet.getString(5)
-//                            + "    " + resultSet.getString(6) + "    " + resultSet.getString(7) + "    " + resultSet.getString(8)
-//                            + "    " + resultSet.getString(9) + "    " + resultSet.getString(10) + "    " + resultSet.getString(11));
-
-                    
-                    
                     format = String.format("%-10s %-13s %-8s %-40s %-10s %-10s %-10s %-7s %-7s %-27s %-5s", resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5),
                             resultSet.getString(6), resultSet.getString(7), resultSet.getString(8), resultSet.getString(9), resultSet.getString(10), resultSet.getString(11));
                     System.out.println(format);
                 }
-                
-                
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -152,7 +138,8 @@ String format;
 
         String crnStore;
         String[] crn = new String[studentNum];
-        System.out.print("Enter the CRN numbers of the classes you would like to teach: ");
+        System.out.print("Enter the CRN numbers of the classes you would like to take: ");
+        System.out.println("EX. 90021,90022,90023");
         crnStore = keyboard7.nextLine();
         crn = crnStore.split(",");
 
@@ -167,8 +154,6 @@ String format;
 
         Statement state2 = null;
         ResultSet resultSet2 = null;
-        
-        
 
         headerOutput = String.format(" %-8s%-12s  %-24s %-26s%-8s %-11s %-12s %-6s %-13s %-22s %-15s", header[0], header[1], header[2], header[3], header[4], header[5], header[6], header[7], header[8], header[9], header[10]);
         System.out.println(headerOutput);
@@ -184,25 +169,13 @@ String format;
 
                 while (resultSet2.next()) {
 
-//                    for (int i = 0; i < 11; i++) {
-//                        result[p][i] = resultSet2.getString(i + 1);
-//
-//                    }
-
                     format = String.format("%-10s %-13s %-8s %-40s %-10s %-10s %-10s %-7s %-7s %-27s %-5s", resultSet2.getString(1), resultSet2.getString(2), resultSet2.getString(3), resultSet2.getString(4), resultSet2.getString(5),
                             resultSet2.getString(6), resultSet2.getString(7), resultSet2.getString(8), resultSet2.getString(9), resultSet2.getString(10), resultSet2.getString(11));
 
                     System.out.println(format);
-//                    System.out.println(resultSet2.getString(1)
-//                            + "    " + resultSet2.getString(2) + "    " + resultSet2.getString(3)
-//                            + "    " + resultSet2.getString(4) + "    " + resultSet2.getString(5)
-//                            + "    " + resultSet2.getString(6) + "    " + resultSet2.getString(7) + "    " + resultSet2.getString(8)
-//                            + "    " + resultSet2.getString(9) + "    " + resultSet2.getString(10) + "    " + resultSet2.getString(11));
 
                 }
 
-                
-                
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -210,7 +183,7 @@ String format;
 
         System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
 
-menu();
+        menu();
 
     }
 
@@ -257,7 +230,7 @@ menu();
             if (pass[0].equals(Username) && pass[1].equals(Password)) {
 
                 int amountClass;
-                System.out.println("How many classes do you want to teach?");
+                System.out.print("How many classes do you want to teach?");
                 amountClass = keyboard.nextInt();
                 System.out.println("Please enter the classes you want to teach.");
                 System.out.println("Example: (BCS102, MTH130, BUS101)");
@@ -276,23 +249,9 @@ menu();
                 String[] days = new String[amountClass];
                 days = selector1.split(",");
 
-//        System.out.println("Please enter the starting time");
-//        System.out.println("Example: 9:00, 10:00, 11:00, ect.");
-//        int selector2;
-//        selector2 = keyboard4.nextInt();
-//
-//        int startingTimes;
-//        startingTimes = selector2;
-//
-//        System.out.println("Please enter the ending time");
-//        System.out.println("Example: 4:00, 5:00, 6:00, ect.");
-//        int selectorTime;
-//        selectorTime = keyboard5.nextInt();
-//
-//        int endingTime;
-//        endingTime = selectorTime;
                 System.out.println("Please enter the starting time");
                 System.out.println("Example: 9:00 (900), 10:00 (1000), 2:00 (1400), ect.");
+                System.out.println("Example: 800,800,900");
                 String selector2;
                 selector2 = keyboard4.nextLine();
 
@@ -302,6 +261,7 @@ menu();
 
                 System.out.println("Please enter the ending time");
                 System.out.println("Example: 3:00 (1500), 5:00 (1700), 6:00 (1800), ect.");
+                System.out.println("Example: 1400,1600,1900");
                 String selectorTime;
                 selectorTime = keyboard5.nextLine();
 
@@ -313,7 +273,6 @@ menu();
                 headerOutput = String.format(" %-8s%-12s  %-24s %-26s%-8s %-11s %-12s %-6s %-13s %-22s %-15s", header[0], header[1], header[2], header[3], header[4], header[5], header[6], header[7], header[8], header[9], header[10]);
                 System.out.println(headerOutput);
                 System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
-
 
                 String connectionUrl
                         = "jdbc:sqlserver://bcs430-final-project.database.windows.net;"
@@ -343,15 +302,10 @@ menu();
 
                         while (resultSet.next()) {
 
-//                            System.out.println(resultSet.getString(1)
-//                                    + "    " + resultSet.getString(2) + "    " + resultSet.getString(3)
-//                                    + "    " + resultSet.getString(4) + "    " + resultSet.getString(5)
-//                                    + "    " + resultSet.getString(6) + "    " + resultSet.getString(7) + "    " + resultSet.getString(8)
-//                                    + "    " + resultSet.getString(9) + "    " + resultSet.getString(10) + "    " + resultSet.getString(11));
-                    format = String.format("%-10s %-13s %-8s %-40s %-10s %-10s %-10s %-7s %-7s %-27s %-5s", resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5),
-                                resultSet.getString(6), resultSet.getString(7), resultSet.getString(8), resultSet.getString(9), resultSet.getString(10), resultSet.getString(11));
+                            format = String.format("%-10s %-13s %-8s %-40s %-10s %-10s %-10s %-7s %-7s %-27s %-5s", resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5),
+                                    resultSet.getString(6), resultSet.getString(7), resultSet.getString(8), resultSet.getString(9), resultSet.getString(10), resultSet.getString(11));
 
-                        System.out.println(format);
+                            System.out.println(format);
                         }
 
                     } catch (Exception e) {
@@ -370,6 +324,7 @@ menu();
                 String crnStore;
                 String[] crn = new String[professorNum];
                 System.out.print("Enter the CRN numbers of the classes you would like to teach: ");
+                System.out.println("Example: 90021,90022,90023");
                 crnStore = keyboard7.nextLine();
                 crn = crnStore.split(",");
 
@@ -382,13 +337,9 @@ menu();
                         + "trustServerCertificate=true;"
                         + "loginTimeout=30;";
 
-                
-                
-
                 headerOutput = String.format(" %-8s%-12s  %-24s %-26s%-8s %-11s %-12s %-6s %-13s %-22s %-15s", header[0], header[1], header[2], header[3], header[4], header[5], header[6], header[7], header[8], header[9], header[10]);
                 System.out.println(headerOutput);
                 System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
-
 
                 for (int p = 0; p < professorNum; p++) {
                     try {
@@ -407,19 +358,11 @@ menu();
 
                         while (resultSet3.next()) {
 
-//                            System.out.println(resultSet3.getString(1)
-//                                    + "    " + resultSet3.getString(2) + "    " + resultSet3.getString(3)
-//                                    + "    " + resultSet3.getString(4) + "    " + resultSet3.getString(5)
-//                                    + "    " + resultSet3.getString(6) + "    " + resultSet3.getString(7) + "    " + resultSet3.getString(8)
-//                                    + "    " + resultSet3.getString(9) + "    " + resultSet3.getString(10) + "    " + resultSet3.getString(11));
-                       format = String.format("%-10s %-13s %-8s %-40s %-10s %-10s %-10s %-7s %-7s %-27s %-5s", resultSet3.getString(1), resultSet3.getString(2), resultSet3.getString(3), resultSet3.getString(4), resultSet3.getString(5),
-                                resultSet3.getString(6), resultSet3.getString(7), resultSet3.getString(8), resultSet3.getString(9), resultSet3.getString(10), resultSet3.getString(11));
+                            format = String.format("%-10s %-13s %-8s %-40s %-10s %-10s %-10s %-7s %-7s %-27s %-5s", resultSet3.getString(1), resultSet3.getString(2), resultSet3.getString(3), resultSet3.getString(4), resultSet3.getString(5),
+                                    resultSet3.getString(6), resultSet3.getString(7), resultSet3.getString(8), resultSet3.getString(9), resultSet3.getString(10), resultSet3.getString(11));
 
-                        System.out.println(format);
+                            System.out.println(format);
                         }
-
-                        
-//                 state.executeUpdate(SQLReset);
 
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -430,11 +373,9 @@ menu();
             } else {
                 System.out.println("Invalid credentials! Please try again");
             }
-            
-            
+
             menu();
         } while (pass[0] != Username || pass[1] != Password);
-        
 
     }
 
@@ -475,18 +416,19 @@ menu();
                 System.out.println("Welcome to the Admin Center");
                 System.out.println("___________________________");
                 System.out.println("Please type an option:");
-                System.out.println("1. Update table");
-                System.out.println("2. Add Record");
+                System.out.println("1. Add Record");
+                System.out.println("2. Update Record");
                 System.out.println("3. Remove Record");
                 System.out.println("4. Exit Admin Center");
                 selector = keyboard.next();
 
                 switch (selector) {
                     case "1":
-                        updateTable();
+                        addRecord();
+
                         break;
                     case "2":
-                        addRecord();
+                        updateRecord();
                         break;
                     case "3":
                         removeRecord();
@@ -512,19 +454,21 @@ menu();
 
     }
 
-    public static void updateTable() throws IOException {
+    public static void updateRecord() throws IOException {
         Scanner keyboard = new Scanner(System.in);
         Scanner keyboard2 = new Scanner(System.in);
         Scanner keyboard3 = new Scanner(System.in);
 
-        String columnChange;
-        System.out.println("What column would you like to change?");
-        System.out.println("(CourseName, Cred, Title, Days, StartTime, Endtime, Act, Rem, Instructor, Location)");
-        columnChange = keyboard.nextLine();
-
         String crn;
         System.out.println("What is the CRN of the course you are updating?:");
+
         crn = keyboard3.nextLine();
+
+        String columnChange;
+        System.out.println("What column would you like to change?");
+        System.out.println("CourseName, Cred, Title, Days, StartTime, Endtime, Act, Rem, Instructor, Location");
+        System.out.println("Example: Days");
+        columnChange = keyboard.nextLine();
 
         String changeTo;
         System.out.println("What would you like to change it to?:");
@@ -532,11 +476,11 @@ menu();
         String format;
         String[] header = new String[]{"CRN", "Course Name", "Credit", "Title", "Days", "Start Time", "End Time", "Act", "Rem", "Instructor", "Location"};
         String headerOutput;
-
+        System.out.println("Here is your updated record!");
         headerOutput = String.format(" %-8s%-12s  %-24s %-26s%-8s %-11s %-12s %-6s %-13s %-22s %-15s", header[0], header[1], header[2], header[3], header[4], header[5], header[6], header[7], header[8], header[9], header[10]);
         System.out.println(headerOutput);
-        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
 
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
 
         String connectionUrl
                 = "jdbc:sqlserver://bcs430-final-project.database.windows.net;"
@@ -556,35 +500,24 @@ menu();
             Connection con = DriverManager.getConnection(connectionUrl);
             Connection con2 = DriverManager.getConnection(connectionUrl);
             String SQL = "UPDATE dbo.Admintest SET " + columnChange + " = '" + changeTo + "' where crn = '" + crn + "'";
-            String SQLoutput = "Select * from dbo.Admintest where crn = '" + changeTo + "'";
+            String SQLoutput = "Select * from dbo.Admintest where crn = '" + crn + "'";
             state = con.createStatement();
             state2 = con2.createStatement();
             state.executeUpdate(SQL);
             resultSet2 = state2.executeQuery(SQLoutput);
-            int i = 1;
 
-            System.out.println("Here is your updated record!");
-//            while (resultSet2.next()) {
-//
-//                System.out.println(resultSet2.getString(1)
-//                        + "    " + resultSet2.getString(2) + "    " + resultSet2.getString(3)
-//                        + "    " + resultSet2.getString(4) + "    " + resultSet2.getString(5)
-//                        + "    " + resultSet2.getString(6) + "    " + resultSet2.getString(7) + "    " + resultSet2.getString(8)
-//                        + "    " + resultSet2.getString(9) + "    " + resultSet2.getString(10) + "    " + resultSet2.getString(11));
-//
-//                i++;
-//
-//            }
+            while (resultSet2.next()) {
 
-            format = String.format("%-10s %-13s %-8s %-40s %-10s %-10s %-10s %-7s %-7s %-27s %-5s", resultSet2.getString(1), resultSet2.getString(2), resultSet2.getString(3), resultSet2.getString(4), resultSet2.getString(5),
-                    resultSet2.getString(6), resultSet2.getString(7), resultSet2.getString(8), resultSet2.getString(9), resultSet2.getString(10), resultSet2.getString(11));
+                format = String.format("%-10s %-13s %-8s %-40s %-10s %-10s %-10s %-7s %-7s %-27s %-5s", resultSet2.getString(1), resultSet2.getString(2), resultSet2.getString(3), resultSet2.getString(4), resultSet2.getString(5),
+                        resultSet2.getString(6), resultSet2.getString(7), resultSet2.getString(8), resultSet2.getString(9), resultSet2.getString(10), resultSet2.getString(11));
+                System.out.println(format);
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
-
 
         menu();
     }
@@ -596,7 +529,8 @@ menu();
         String[] classes = new String[9];
         String tempClass;
         System.out.println("Enter course you would like to add in the following format!");
-        System.out.println("EX. CRN, Course Name, Credit, Title, Days, Start Time, End Time, Instructor, Location");
+        System.out.println("Example: CRN, Course Name, Credit, Title, Days, Start Time, End Time, Instructor, Location");
+        System.out.println("Example: 99873,BCS345W,3,Senior Project,mw,800,915,Mary Villani,Whitman 208");
         tempClass = keyboard.nextLine();
         classes = tempClass.split(",");
         String format;
@@ -606,9 +540,8 @@ menu();
         headerOutput = String.format(" %-8s%-12s  %-24s %-26s%-8s %-11s %-12s %-6s %-13s %-22s %-15s", header[0], header[1], header[2], header[3], header[4], header[5], header[6], header[7], header[8], header[9], header[10]);
         System.out.println("Here is your added class!");
         System.out.println(headerOutput);
-        
-        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
 
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
 
         String connectionUrl
                 = "jdbc:sqlserver://bcs430-final-project.database.windows.net;"
@@ -637,30 +570,18 @@ menu();
             resultSet2 = state2.executeQuery(SQLoutput);
             int i = 1;
 
-            
             while (resultSet2.next()) {
-//
-//                System.out.println(resultSet2.getString(1)
-//                        + "    " + resultSet2.getString(2) + "    " + resultSet2.getString(3)
-//                        + "    " + resultSet2.getString(4) + "    " + resultSet2.getString(5)
-//                        + "    " + resultSet2.getString(6) + "    " + resultSet2.getString(7) + "    " + resultSet2.getString(8)
-//                        + "    " + resultSet2.getString(9) + "    " + resultSet2.getString(10) + "    " + resultSet2.getString(11));
-//
-//                i++;
-//
 
-format = String.format("%-10s %-13s %-8s %-40s %-10s %-10s %-10s %-7s %-7s %-27s %-5s", resultSet2.getString(1), resultSet2.getString(2), resultSet2.getString(3), resultSet2.getString(4), resultSet2.getString(5),
-                    resultSet2.getString(6), resultSet2.getString(7), resultSet2.getString(8), resultSet2.getString(9), resultSet2.getString(10), resultSet2.getString(11));
+                format = String.format("%-10s %-13s %-8s %-40s %-10s %-10s %-10s %-7s %-7s %-27s %-5s", resultSet2.getString(1), resultSet2.getString(2), resultSet2.getString(3), resultSet2.getString(4), resultSet2.getString(5),
+                        resultSet2.getString(6), resultSet2.getString(7), resultSet2.getString(8), resultSet2.getString(9), resultSet2.getString(10), resultSet2.getString(11));
                 System.out.println(format);
             }
 
-            
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
-
 
         menu();
     }
@@ -680,7 +601,6 @@ format = String.format("%-10s %-13s %-8s %-40s %-10s %-10s %-10s %-7s %-7s %-27s
         headerOutput = String.format(" %-8s%-12s  %-24s %-26s%-8s %-11s %-12s %-6s %-13s %-22s %-15s", header[0], header[1], header[2], header[3], header[4], header[5], header[6], header[7], header[8], header[9], header[10]);
         System.out.println(headerOutput);
         System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
-
 
         String connectionUrl
                 = "jdbc:sqlserver://bcs430-final-project.database.windows.net;"
@@ -705,7 +625,6 @@ format = String.format("%-10s %-13s %-8s %-40s %-10s %-10s %-10s %-7s %-7s %-27s
             state2 = con2.createStatement();
             state.executeUpdate(SQL);
             resultSet2 = state2.executeQuery(SQLoutput);
-            int i = 1;
 
             System.out.println("Record deleted!");
 
@@ -714,7 +633,6 @@ format = String.format("%-10s %-13s %-8s %-40s %-10s %-10s %-10s %-7s %-7s %-27s
         }
 
         System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
-
 
         menu();
     }
