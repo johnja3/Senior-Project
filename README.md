@@ -20,8 +20,18 @@ https://netbeans.org/downloads/8.2/start.html?platform=windows&lang=en&option=ja
 
 ## Usage
 
-*Important:
+* Important:
 
 - MUST copy and paste the SQL Authenticator dll file into the enu x64/x84 folder
 
 - MUST include the .jar file into the project
+
+* Admin Login:
+
+Username: Admin
+Password: Admin
+
+* Professor Login:
+
+Username: Mary
+Password: Mary
